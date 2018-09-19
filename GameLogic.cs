@@ -201,8 +201,12 @@ namespace Revolution
                     //Swap the cubes in any two Influence spaces
                     for (int i = 0; i < arguments.Count() && i < 2; i++)
                     {
-                        var arg = arguments[0];
-                        //var info=new List<Tuple<Tuple<Area, Player>, Tuple<Area, Player>>{ new Tuple<Tuple<Area, Player>, Tuple<Area, Player>>, new Tuple<Tuple<Area, Player>, Tuple<Area, Player>>}
+                        var arg = arguments[i];
+                        arg.Source.Area.RemoveInfluence(arg.Source.Player);
+                        arg.Source.Area.AddInfluence(arg.Target.Player);
+
+                        arg.Target.Area.RemoveInfluence(arg.Target.Player);
+                        arg.Target.Area.AddInfluence(arg.Source.Player);
                         //(no force)
 
                     }
@@ -401,6 +405,11 @@ namespace Revolution
                     }
                     return false;
                 }
+                public void RemoveInfluence(Player targetPlayer)
+                {
+                    Influence.FirstOrDefault(x => x.Equals(targetPlayer));
+                    targetPlayer.InfluencePool++;
+                }
 
                 public bool AnyInfluence(Player targetPlayer)
                 {
@@ -409,12 +418,13 @@ namespace Revolution
 
                 public bool ReplaceInfluence(Player targetPlayer, Player invokingPlayer)
                 {
-                    Influence.FirstOrDefault(x => x.Equals(targetPlayer));
-                    targetPlayer.InfluencePool++;
-                    Influence.Add(invokingPlayer);
-                    invokingPlayer.InfluencePool--;
+                    RemoveInfluence(targetPlayer);
+                    AddInfluence(invokingPlayer);
                     return true;
                 }
+
+                
+
 
                 [PointValue(30)]
                 [Spaces(6)]
