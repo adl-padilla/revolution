@@ -1,4 +1,5 @@
-﻿using SDL_Extensions;
+﻿using RevolutionInternals;
+using SDL_Extensions;
 using SDL2;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using static Revolution.GameLogic;
-using static Revolution.GameLogic.Player;
-using static Revolution.GameLogic.Token;
+using static RevolutionInternals.GameLogic;
+using static RevolutionInternals.GameLogic.Player;
+using static RevolutionInternals.GameLogic.Token;
 
-namespace Revolution
+namespace RevolutionSDL
 {
     class Program
     {
@@ -109,7 +110,7 @@ namespace Revolution
                 var top = (int)((mode.h - height) * .5);
 
 
-                using (var window = new Window(nameof(Revolution), left, top, width, height, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN, true))
+                using (var window = new Window(nameof(RevolutionSDL), left, top, width, height, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN, true))
                 { 
                 
                     if (window.IsValid())
